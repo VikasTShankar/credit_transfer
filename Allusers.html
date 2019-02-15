@@ -1,0 +1,52 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>ALLUSERS</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	<link href="coming-soon/css/styles.css" rel="stylesheet">
+	<link href="coming-soon/css/responsive.css" rel="stylesheet">
+</head>
+<body>
+	<div class="main-area center-text" style="background-image:url(images/creditcard.jpg);" >
+		<div class="display-table">
+			<div class="display-table-cell">
+				<p class="id" ><h4>Select a user you want to tranfer credit from:</h4></p>
+				<div class="buttn1">
+				   <button class="submit-btn" name="submit" onClick="myFunction('01')"><b>USER 1</b></button>
+				   <button class="submit-btn" name="submit" onClick="myFunction('02')"><b>USER 2</b></button>
+				</div>
+				<div class="buttn1">
+				   <button class="submit-btn" name="submit" onClick="myFunction('03')"><b>USER 3</b></button>
+				   <button class="submit-btn" name="submit" onClick="myFunction('04')"><b>USER 4</b></button>
+				</div>
+				<div class="buttn1">
+				   <button class="submit-btn" name="submit" onClick="myFunction('05')"><b>USER 5</b></button>
+				   <button class="submit-btn" name="submit" onClick="myFunction('06')"><b>USER 6</b></button>
+				</div>
+				<div class="buttn1">
+			       <button class="submit-btn" name="submit" onClick="myFunction('07')"><b>USER 7</b></button>
+				   <button class="submit-btn" name="submit" onClick="myFunction('08')"><b>USER 8</b></button>
+				</div>
+                <div class="buttn1">
+				   <button class="submit-btn" name="submit" onClick="myFunction('09')"><b>USER 9</b></button>
+				   <button class="submit-btn" name="submit" onClick="myFunction('10')"><b>USER 10</b></button>
+                </div>
+                <div class="buttn2">
+				 <a href="transferstable.html"><button class="submit-btn" name="submit" align="center"><b>VIEW TRANSFER TABLE</b></button></a>
+                </div>
+       			</div>
+			</div><!-- display-table -->
+		</div><!-- display-table-cell -->
+	</div><!-- main-area -->
+	<script src="common-js/jquery-3.1.1.min.js"></script>
+	<script src="common-js/scripts.js"></script>
+	<script>
+		function myFunction(num){
+			var queryString = "?para1=" +num;
+			window.location.href = "selecteduser.html" + queryString;
+ 		}</script>
+</body>
+</html>

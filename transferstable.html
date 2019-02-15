@@ -1,0 +1,77 @@
+<html>
+ 	<head>
+  		<title>TRANSFERS TABLE</title>
+  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta charset="UTF-8">
+	    <link rel='stylesheet' href='bootstrap/css/bootstrap.min.css'>
+      <script src="bootstrap/js/bootstrap.min.js"></script>
+      <link href="coming-soon/css/responsive.css" rel="stylesheet">
+  </head>
+    <body bgcolor:>
+    	     <div class="container">
+                <div class="table-responsive">
+                  <table class="table table-bordered table-striped" cellpadding=5px >
+                    <tr>
+                      <th colspan="2" style="width: 200px"><h4 align="center" style="color:#19045e"><b>Tranfer Details</b></h4></th>
+                    </tr>
+                    <tr>
+                      <th style="color:#19045e">Transferred by</th>
+                      <th style="color:#19045e">Transferred to</th>
+                    </tr>
+                    <tr>
+                    <td>
+                      <div id="from"></div>
+                    </td>
+                    <td>
+                      <div id="to"></div>
+                    </td>
+                  </table>
+                  <div>
+                     <a href="Allusers.html"><button class="submit-btn" name="submit"><b>Back</b></button></a>
+                  </div>
+               </div>
+           </div>
+          <script src="common-js/jquery-3.1.1.min.js"></script>
+	        <script src="common-js/scripts.js"></script>	
+          <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+    <script>
+     //Initialize Firebase
+        var config = {
+      apiKey: "AIzaSyDoj07kCQN4GwWOnD3FJcqk57NWyJKzCCA",
+      authDomain: "creditmanagement-20b5e.firebaseapp.com",
+      databaseURL: "https://creditmanagement-20b5e.firebaseio.com",
+      projectId: "creditmanagement-20b5e",
+      storageBucket: "creditmanagement-20b5e.appspot.com",
+      messagingSenderId: "804030392592"
+      };
+      firebase.initializeApp(config); 
+       database=firebase.database();
+      var ref=database.ref('users');
+      ref.on('value', gotData, errData);
+      
+      function gotData(data) {
+      var users=data.val();
+      var keys= Object.keys(users);
+      console.log(keys);
+      for(var i=0; i<keys.length; i++){
+           var k=keys[i];
+           var name=users[k].name;
+           var credit=users[k].credit;
+        if(credit==0 )
+          {
+            console.log(name,credit);
+           $("#from").append(name+"<br>");
+          }
+        else if(credit>100)
+           $("#to").append(name+"<br>");
+        }
+      }
+      function errData(err) {
+      console.log('error!');
+      console.log(err);
+      }
+    </script>
+  </body>
+</html>
+

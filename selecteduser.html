@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>SELECTEDUSER</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	<link href="coming-soon/css/styles.css" rel="stylesheet">
+	<link href="coming-soon/css/responsive.css" rel="stylesheet">
+</head>
+<body>
+	<div class="main-area center-text" style="background-image:url(images/creditcard.jpg);" >
+		<div class="display-table">
+			<div class="display-table-cell">
+				<h2><class="title"><b>USER DETAILS:</b></h2>	
+					<div id="name" style="color:#19045e">Name:</div>
+					<div id="email" style="color:#19045e">Email:</div>
+					<div id="credit" style="color:#19045e"> Current Credit:</div>
+			    <div class="buttn">
+				    <button class="submit-btn" id="but" name="submit" align="center" onClick="myFunction()"><b>Transfer credit</b></button>
+				    <a href="Allusers.html"><button class="submit-btn" name="submit" align="center"><b>Back</b></button></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="common-js/jquery-3.1.1.min.js"></script>
+	<script src="common-js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+    <script>
+     // Initialize Firebase
+     
+      	var config = {
+    	apiKey: "AIzaSyDoj07kCQN4GwWOnD3FJcqk57NWyJKzCCA",
+    	authDomain: "creditmanagement-20b5e.firebaseapp.com",
+    	databaseURL: "https://creditmanagement-20b5e.firebaseio.com",
+    	projectId: "creditmanagement-20b5e",
+    	storageBucket: "creditmanagement-20b5e.appspot.com",
+    	messagingSenderId: "804030392592"
+  		};
+  		firebase.initializeApp(config);
+        
+        var queryString = decodeURIComponent(window.location.search);
+		queryString = queryString.substring(1);
+		var queries = queryString.split("=");
+ 		let userId='user'+queries[1];
+        firebase.database().ref("/users/"+userId).once("value").then(function(snapshot) {
+        var data = snapshot.val(); 
+ 		console.log(data);            
+
+ 		var name_val = snapshot.val().name;
+ 		var email_val = snapshot.val().email;
+ 		var credit_val = snapshot.val().credit;
+ 		$("#name").append(name_val);
+ 		$("#email").append(email_val);
+ 		$("#credit").append(credit_val);
+ 		if(credit_val==0)
+ 		
+ 			swal({ text:'Do not have enough credits', icon:'error' });
+            
+        });
+        
+		</script>
+        <script
+  		src="https://code.jquery.com/jquery-3.3.1.js"
+  		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  		crossorigin="anonymous"></script>
+  		<script>
+		function myFunction(){
+			var queryString = "?para1=" +queries[1];
+			window.location.href = "transfer.html" + queryString;
+ 		}</script>
+	</body>
+</html>
+

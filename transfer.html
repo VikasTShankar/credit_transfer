@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>TRANSFER</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	
+	<link href="coming-soon/css/styles.css" rel="stylesheet">
+	<link href="coming-soon/css/responsive.css" rel="stylesheet">
+</head>
+<body>
+	<div class="main-area center-text" style="background-image:url(images/creditcard.jpg);" >
+		<div class="display-table">
+			<div class="display-table-cell">
+				<p class="id" ><h4>Select a user you want to tranfer credit to:</h4></p>
+				<div class="buttn1">
+				   <button class="submit-btn" name="submit" onClick="myFunction('01')"><b>USER 1</b></button>
+				   <button class="submit-btn" name="submit" onClick="myFunction('02')"><b>USER 2</b></button>
+				</div>
+				<div class="buttn1">
+				   <button class="submit-btn" name="submit" onClick="myFunction('03')"><b>USER 3</b></button>
+				   <button class="submit-btn" name="submit" onClick="myFunction('04')"><b>USER 4</b></button>
+				</div>
+				<div class="buttn1">
+				   <button class="submit-btn" name="submit" onClick="myFunction('05')"><b>USER 5</b></button>
+				   <button class="submit-btn" name="submit" onClick="myFunction('06')"><b>USER 6</b></button>
+				</div>
+				<div class="buttn1">
+			       <button class="submit-btn" name="submit" onClick="myFunction('07')"><b>USER 7</b></button>
+				   <button class="submit-btn" name="submit" onClick="myFunction('08')"><b>USER 8</b></button>
+				</div>
+                <div class="buttn1">
+				   <button class="submit-btn" name="submit" onClick="myFunction('09')"><b>USER 9</b></button>
+				   <button class="submit-btn" name="submit" onClick="myFunction('10')"><b>USER 10</b></button>
+                </div>
+                <div class="buttn2">
+				 <a href="transferstable.html"><button class="submit-btn" name="submit" align="center"><b>VIEW TRANSFER TABLE</b></button></a>
+                </div>
+
+       			</div>
+			</div><!-- display-table -->
+		</div><!-- display-table-cell -->
+	</div><!-- main-area -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+	<script>
+
+		var takingUserId;
+		var givingUserId;
+		var give_credit_val;
+ 		var take_credit_val;
+		function myFunction(num) {
+		var queryString = decodeURIComponent(window.location.search);
+		queryString = queryString.substring(1);
+		var queries = queryString.split("=");
+ 			if(num==queries[1]){
+				swal({ text:'Can\'t transfer credit to yourself!', icon:'error' });
+ 			}
+ 			else{
+				var config = {
+    			apiKey: "AIzaSyDoj07kCQN4GwWOnD3FJcqk57NWyJKzCCA",
+    			authDomain: "creditmanagement-20b5e.firebaseapp.com",
+    			databaseURL: "https://creditmanagement-20b5e.firebaseio.com",
+    			projectId: "creditmanagement-20b5e",
+    			storageBucket: "creditmanagement-20b5e.appspot.com",
+    			messagingSenderId: "804030392592"
+  			};
+  				firebase.initializeApp(config);
+
+  		givingUserId='user'+queries[1];
+ 		takingUserId='user'+num;
+ 		firebase.database().ref("/users/"+givingUserId).once("value").then(function(snapshot) {
+		var data = snapshot.val(); 
+ 		console.log(data);
+		give_credit_val = snapshot.val().credit;
+		firebase.database().ref("/users/"+takingUserId).once("value").then(function(snapshot) {
+		var data = snapshot.val(); 
+ 		console.log(data);
+		take_credit_val = snapshot.val().credit;
+
+ 		var new_credit=take_credit_val+give_credit_val;
+ 		console.log(new_credit);
+ 		console.log(take_credit_val);
+ 		console.log(give_credit_val);
+  		firebase.database().ref("users/"+takingUserId).update({
+			credit : new_credit
+
+ 		});
+  		firebase.database().ref("users/"+givingUserId).update({
+			credit : 0
+
+ 		});
+		swal({ text:'Successfully transferred!', icon:'success' }).then(okay =>{
+		if(okay){
+		 window.location.href="Allusers.html";
+		 }
+		 });	
+		});
+ 	});
+	}}
+	</script>
+    <script src="common-js/jquery-3.1.1.min.js"></script>
+	<script src="common-js/scripts.js"></script>
+</body>
+</html>
