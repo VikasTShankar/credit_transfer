@@ -1,4 +1,4 @@
-# creditransfer
+# credit_transfer
 Transfer credit between users.
 
 Flow - 1) Start with homepage.html -> Click on view all users
